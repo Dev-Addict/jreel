@@ -1,0 +1,10 @@
+export enum TypographyType {
+	HEADING_1 = 'HEADING_1',
+	HEADING_2 = 'HEADING_2',
+	BODY_1 = 'BODY_1',
+	BODY_2 = 'BODY_2',
+	PARAGRAPH = 'PARAGRAPH',
+	BUTTON = 'BUTTON',
+	CAPTION = 'CAPTION',
+	OVERLINE = 'OVERLINE',
+}

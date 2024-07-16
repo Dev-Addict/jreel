@@ -1,4 +1,4 @@
-import {Layout} from './layout.component';
+import {Layout} from './layout/layout.component';
 
 export const App = () => {
 	return <Layout />;

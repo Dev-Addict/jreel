@@ -31,9 +31,12 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/Inter-VariableFont.ttf"]
+          "fonts": [
+            "./assets/fonts/Inter-VariableFont.ttf"
+          ]
         }
-      ]
+      ],
+      "expo-router"
     ]
   }
 }

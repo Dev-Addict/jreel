@@ -36,7 +36,9 @@
           ]
         }
       ],
-      "expo-router"
+      "expo-router",
+      "expo-av",
+      "react-native-video"
     ]
   }
 }

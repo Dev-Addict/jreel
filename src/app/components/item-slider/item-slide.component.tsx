@@ -1,4 +1,6 @@
-import {FC} from 'react';
+import {FC, useCallback} from 'react';
+import {TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import numeral from 'numeral';
 import styled from 'styled-components/native';
 import {LinearGradient} from 'expo-linear-gradient';
@@ -6,8 +8,9 @@ import {LinearGradient} from 'expo-linear-gradient';
 import {Text} from '../shared/text.component';
 import {QualityLabel} from '../shared/quality-label.component';
 import {processImageUri} from '../../../utils/process-image-uri.util';
-import {Item} from '../../../types/models/item.model';
 import {TypographyType} from '../../../types/theme/typography-type.enum';
+import {SlideData} from '../../../types/api/items/slide-data.type';
+import {HomeScreenProps} from '../../../types/navigator/screen-props/home.screen-props';
 
 interface ContainerProps {
 	width: number;
@@ -52,43 +55,51 @@ const Content = styled.View`
 `;
 
 interface Props {
-	item: Item;
+	item: SlideData;
 	width: number;
 	height: number;
 }
 
 export const ItemSlide: FC<Props> = ({item, width, height}) => {
+	const navigation = useNavigation<HomeScreenProps>();
+
+	const onPress = useCallback(() => {
+		navigation.navigate('Item', {slug: item.slug});
+	}, []);
+
 	return (
-		<Container width={width} height={height}>
-			<Image
-				source={{uri: processImageUri(item.banner[0], {width, height})}}
-				width={width}
-				height={height}
-			/>
-			<Gradient colors={['#000000', 'transparent']} />
-			<Content>
-				<Text type={TypographyType.HEADING_2} light>
-					{item.title}
-				</Text>
-				<Details>
-					<QualityLabel quality={item.quality} />
-					{item.imdb && (
-						<Text type={TypographyType.BODY_2} light>
-							{numeral(item.imdb / 10).format('0.0')}
-						</Text>
-					)}
-					{item.duration && (
-						<Text type={TypographyType.BODY_2} light>
-							{item.duration} mins
-						</Text>
-					)}
-					{item.genres.length > 0 && (
-						<Text type={TypographyType.BODY_2} light>
-							{item.genres.map(({name}) => name).join(', ')}
-						</Text>
-					)}
-				</Details>
-			</Content>
-		</Container>
+		<TouchableOpacity onPress={onPress}>
+			<Container width={width} height={height}>
+				<Image
+					source={{uri: processImageUri(item.banner, {width, height})}}
+					width={width}
+					height={height}
+				/>
+				<Gradient colors={['#000000', 'transparent']} />
+				<Content>
+					<Text type={TypographyType.HEADING_2} light>
+						{item.title}
+					</Text>
+					<Details>
+						<QualityLabel quality={item.quality} />
+						{item.imdb && (
+							<Text type={TypographyType.BODY_2} light>
+								{numeral(item.imdb / 10).format('0.0')}
+							</Text>
+						)}
+						{item.duration && (
+							<Text type={TypographyType.BODY_2} light>
+								{item.duration} mins
+							</Text>
+						)}
+						{item.genres.length > 0 && (
+							<Text type={TypographyType.BODY_2} light>
+								{item.genres.join(', ')}
+							</Text>
+						)}
+					</Details>
+				</Content>
+			</Container>
+		</TouchableOpacity>
 	);
 };

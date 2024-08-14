@@ -17,6 +17,7 @@ import {ItemsScreen} from '../screens/items.screen';
 import {DownloadsScreen} from '../screens/downloads.screen';
 import {GenresScreen} from '../screens/genres.screen';
 import {MainTabBar} from './main.tab-bar';
+import {ItemsProvider} from '../../contexts/items/items.provider';
 import {HomeIcon} from '../../assets/icons/home.icon';
 import {MagnifyingGlassIcon} from '../../assets/icons/magnifying-glass.icon';
 import {GroupWatchIcon} from '../../assets/icons/group-watch.icon';
@@ -29,9 +30,11 @@ import {
 	LIGHT_THEME,
 	NAVIGATION_LIGHT_THEME,
 } from '../../constants/themes/light.theme.constant';
+import {MainStackParamList} from '../../types/navigator/main-stack.param-list.type';
+import {MainTabParamList} from '../../types/navigator/main-tab.param-list.type';
 
-const MainStack = createNativeStackNavigator();
-const MainTab = createBottomTabNavigator();
+const MainStack = createNativeStackNavigator<MainStackParamList>();
+const MainTab = createBottomTabNavigator<MainTabParamList>();
 
 const TabNavigator = () => {
 	const theme = useTheme();
@@ -111,23 +114,25 @@ export const Layout = () => {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<NavigationThemeProvider value={navigationTheme}>
-				<SafeAreaProvider>
-					<StatusBar hidden />
-					<NavigationContainer>
-						<MainStack.Navigator screenOptions={{headerShown: false}}>
-							<MainStack.Screen
-								name="MainTabs"
-								component={TabNavigator}
-								options={{headerShown: false}}
-							/>
-							<MainStack.Screen name="Items" component={ItemsScreen} />
-							<MainStack.Screen name="Item" component={ItemScreen} />
-							<MainStack.Screen name="Video" component={VideoScreen} />
-						</MainStack.Navigator>
-					</NavigationContainer>
-				</SafeAreaProvider>
-			</NavigationThemeProvider>
+			<ItemsProvider>
+				<NavigationThemeProvider value={navigationTheme}>
+					<SafeAreaProvider>
+						<StatusBar hidden />
+						<NavigationContainer>
+							<MainStack.Navigator screenOptions={{headerShown: false}}>
+								<MainStack.Screen
+									name="MainTabs"
+									component={TabNavigator}
+									options={{headerShown: false}}
+								/>
+								<MainStack.Screen name="Items" component={ItemsScreen} />
+								<MainStack.Screen name="Item" component={ItemScreen} />
+								<MainStack.Screen name="Video" component={VideoScreen} />
+							</MainStack.Navigator>
+						</NavigationContainer>
+					</SafeAreaProvider>
+				</NavigationThemeProvider>
+			</ItemsProvider>
 		</ThemeProvider>
 	);
 };

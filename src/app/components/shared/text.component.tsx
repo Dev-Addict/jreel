@@ -13,22 +13,44 @@ interface StyledTextProps {
 }
 
 const StyledText = styled(RNText)<StyledTextProps>`
-    ${({color, typography}) => ({color, ...typography})}
+	${({color, typography}) => ({color, ...typography})}
 `;
 
 interface Props extends RNTextProps {
 	type?: TypographyType;
 	dark?: boolean;
 	light?: boolean;
+	primary?: boolean;
 	secondary?: boolean;
 	context?: boolean;
 }
 
-export const Text: FC<Props> = ({type = TypographyType.BODY_1, dark, light, secondary, context, ...props}) => {
+export const Text: FC<Props> = ({
+	type = TypographyType.BODY_1,
+	dark,
+	light,
+	primary,
+	secondary,
+	context,
+	...props
+}) => {
 	const theme = useTheme();
 
-	const color = useMemo(() => dark && DARK_COLOR_GROUP.m || light && LIGHT_COLOR_GROUP.m || (secondary && (context && theme.colors.secondary.c || theme.colors.secondary.m)) || theme.colors.foreground.m!, [theme]);
-	const typography = useMemo(() => theme.typographies[type], [theme.typography, type]);
+	const color = useMemo(
+		() =>
+			(dark && DARK_COLOR_GROUP.m) ||
+			(light && LIGHT_COLOR_GROUP.m) ||
+			(primary &&
+				((context && theme.colors.primary.c) || theme.colors.primary.m)) ||
+			(secondary &&
+				((context && theme.colors.secondary.c) || theme.colors.secondary.m)) ||
+			theme.colors.foreground.m!,
+		[theme]
+	);
+	const typography = useMemo(
+		() => theme.typographies[type],
+		[theme.typography, type]
+	);
 
 	return <StyledText {...props} color={color} typography={typography} />;
 };

@@ -5,4 +5,5 @@ export enum Quality {
 	UHD = 'UHD',
 	FOURK = '4K',
 	CAM = 'CAM',
+	UN = 'UN',
 }

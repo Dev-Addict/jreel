@@ -1,10 +1,10 @@
 import {ParamListBase} from '@react-navigation/native';
 
-import {MainTabParamList} from './main-tab.param-list.type';
+import {ItemType} from '../item-type.enum';
 
 export interface MainStackParamList extends ParamListBase {
-	MainTab: MainTabParamList;
-	Items: {};
-	Item: {id: string};
-	Video: {id: string};
+	MainTab: {};
+	Items: {itemType: ItemType};
+	Item: {slug: string};
+	Video: {slug: string; server: string; episode: string};
 }

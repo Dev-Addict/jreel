@@ -1,9 +1,10 @@
-import {View, Text} from 'react-native';
+import {Item} from '../components/item/item.component';
+import {Screen} from '../components/shared/screen.component';
 
 export const ItemScreen = () => {
 	return (
-		<View>
-			<Text>Item</Text>
-		</View>
+		<Screen>
+			<Item />
+		</Screen>
 	);
 };

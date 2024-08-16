@@ -32,7 +32,7 @@ export const TYPOGRAPHY_THEME: TypographyTheme = {
 	},
 	[TypographyType.BUTTON]: {
 		fontFamily: 'Inter',
-		fontSize: 14,
+		fontSize: 18,
 		fontWeight: 700,
 	},
 	[TypographyType.CAPTION]: {

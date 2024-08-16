@@ -5,16 +5,16 @@ import {Image as EImage} from 'expo-image';
 import styled from 'styled-components/native';
 import {LinearGradient} from 'expo-linear-gradient';
 
-import {Text} from '../shared/text.component';
-import {QualityLabel} from '../shared/quality-label.component';
-import {EpisodesLabel} from '../shared/episodes-label.component';
-import {processImageUri} from '../../../utils/process-image-uri.util';
-import {TypographyType} from '../../../types/theme/typography-type.enum';
-import {ItemType} from '../../../types/item-type.enum';
-import {CARD_IMAGE_PLACEHOLDER} from '../../../constants/placeholders.constant';
-import {MovieCardData} from '../../../types/api/items/movie-card-data.type';
-import {ShowCardData} from '../../../types/api/items/show-card-data.type';
-import {HomeScreenProps} from '../../../types/navigator/screen-props/home.screen-props';
+import {Text} from '../../shared/text.component';
+import {QualityLabel} from '../../shared/quality-label.component';
+import {EpisodesLabel} from '../../shared/episodes-label.component';
+import {processImageUri} from '../../../../utils/process-image-uri.util';
+import {TypographyType} from '../../../../types/theme/typography-type.enum';
+import {ItemType} from '../../../../types/item-type.enum';
+import {CARD_IMAGE_PLACEHOLDER} from '../../../../constants/placeholders.constant';
+import {MovieCardData} from '../../../../types/api/items/movie-card-data.type';
+import {ShowCardData} from '../../../../types/api/items/show-card-data.type';
+import {RelatedItemCardData} from '../../../../types/api/items/related-item-card-data.type';
 
 interface ContainerProps {
 	width: number;
@@ -76,13 +76,17 @@ type Props = {
 			item: ShowCardData;
 			itemType: ItemType.SHOW;
 	  }
+	| {
+			item: RelatedItemCardData;
+			itemType?: undefined;
+	  }
 );
 
 export const ItemCard: FC<Props> = ({item, width, height, itemType}) => {
-	const navigation = useNavigation<HomeScreenProps>();
+	const navigation = useNavigation();
 
 	const onPress = useCallback(() => {
-		navigation.navigate('Item', {slug: item.slug});
+		(navigation as any).push('Item', {slug: item.slug});
 	}, [item.slug]);
 
 	return (
@@ -99,7 +103,7 @@ export const ItemCard: FC<Props> = ({item, width, height, itemType}) => {
 					{itemType === ItemType.SHOW ? (
 						<EpisodesLabel episodes={item.episodes} />
 					) : (
-						<QualityLabel quality={item.quality} />
+						itemType && <QualityLabel quality={item.quality} />
 					)}
 				</LabelContainer>
 				<Content>

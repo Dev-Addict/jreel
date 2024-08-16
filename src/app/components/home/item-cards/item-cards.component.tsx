@@ -1,17 +1,18 @@
 import {FC, useCallback} from 'react';
 import styled from 'styled-components/native';
 
-import {Text} from '../shared/text.component';
-import {TypographyType} from '../../../types/theme/typography-type.enum';
-import {ChevronRightIcon} from '../../../assets/icons/chevron-right.icon';
+import {Text} from '../../shared/text.component';
+import {TypographyType} from '../../../../types/theme/typography-type.enum';
+import {ChevronRightIcon} from '../../../../assets/icons/chevron-right.icon';
 import {ItemCard} from './item-card.component';
-import {MovieCardData} from '../../../types/api/items/movie-card-data.type';
-import {ShowCardData} from '../../../types/api/items/show-card-data.type';
+import {MovieCardData} from '../../../../types/api/items/movie-card-data.type';
+import {ShowCardData} from '../../../../types/api/items/show-card-data.type';
 import {ItemCardSkeleton} from './item-card.skeleton';
 import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {HomeScreenProps} from '../../../types/navigator/screen-props/home.screen-props';
-import {ItemType} from '../../../types/item-type.enum';
+import {HomeScreenProps} from '../../../../types/navigator/screen-props/home.screen-props';
+import {ItemType} from '../../../../types/item-type.enum';
+import {RelatedItemCardData} from '../../../../types/api/items/related-item-card-data.type';
 
 const Container = styled.View`
 	margin: 16px 0;
@@ -39,6 +40,10 @@ type Props = {
 			items: ShowCardData[];
 			itemType: ItemType.SHOW;
 	  }
+	| {
+			items: RelatedItemCardData[];
+			itemType?: undefined;
+	  }
 );
 
 export const ItemCards: FC<Props> = ({title, items, itemType, skeleton}) => {
@@ -65,15 +70,25 @@ export const ItemCards: FC<Props> = ({title, items, itemType, skeleton}) => {
 							itemType={itemType}
 						/>
 					))
-				: items.map((item) => (
-						<ItemCard
-							key={item.slug}
-							item={item}
-							width={120}
-							height={190}
-							itemType={itemType}
-						/>
-					));
+				: itemType
+					? items.map((item) => (
+							<ItemCard
+								key={item.slug}
+								item={item}
+								width={120}
+								height={190}
+								itemType={itemType}
+							/>
+						))
+					: items.map((item) => (
+							<ItemCard
+								key={item.slug}
+								item={item}
+								width={120}
+								height={190}
+								itemType={itemType}
+							/>
+						));
 
 	return (
 		<Container>

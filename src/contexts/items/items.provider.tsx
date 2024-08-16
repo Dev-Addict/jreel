@@ -17,7 +17,6 @@ export const ItemsProvider: FC<PropsWithChildren> = ({children}) => {
 			setHome(response.data.data);
 			setIsHomeLoaded(true);
 		} catch (error) {
-			alert(GET_HOME_URL);
 			setIsError(true);
 		} finally {
 			setIsLoading(false);

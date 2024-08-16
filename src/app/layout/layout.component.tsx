@@ -126,7 +126,18 @@ export const Layout = () => {
 									options={{headerShown: false}}
 								/>
 								<MainStack.Screen name="Items" component={ItemsScreen} />
-								<MainStack.Screen name="Item" component={ItemScreen} />
+								<MainStack.Screen
+									name="Item"
+									component={ItemScreen}
+									options={{
+										headerShown: true,
+										headerTransparent: true,
+										headerTitle: '',
+										headerStyle: {
+											backgroundColor: 'transparent',
+										},
+									}}
+								/>
 								<MainStack.Screen name="Video" component={VideoScreen} />
 							</MainStack.Navigator>
 						</NavigationContainer>

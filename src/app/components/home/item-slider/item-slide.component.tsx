@@ -5,12 +5,12 @@ import numeral from 'numeral';
 import styled from 'styled-components/native';
 import {LinearGradient} from 'expo-linear-gradient';
 
-import {Text} from '../shared/text.component';
-import {QualityLabel} from '../shared/quality-label.component';
-import {processImageUri} from '../../../utils/process-image-uri.util';
-import {TypographyType} from '../../../types/theme/typography-type.enum';
-import {SlideData} from '../../../types/api/items/slide-data.type';
-import {HomeScreenProps} from '../../../types/navigator/screen-props/home.screen-props';
+import {Text} from '../../shared/text.component';
+import {QualityLabel} from '../../shared/quality-label.component';
+import {processImageUri} from '../../../../utils/process-image-uri.util';
+import {TypographyType} from '../../../../types/theme/typography-type.enum';
+import {SlideData} from '../../../../types/api/items/slide-data.type';
+import {HomeScreenProps} from '../../../../types/navigator/screen-props/home.screen-props';
 
 interface ContainerProps {
 	width: number;

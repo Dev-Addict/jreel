@@ -1,6 +1,6 @@
 import {FC, useMemo} from 'react';
 import {Text as RNText, TextProps as RNTextProps} from 'react-native';
-import styled, {useTheme} from 'styled-components/native';
+import styled, {css, useTheme} from 'styled-components/native';
 
 import {DARK_COLOR_GROUP} from '../../../constants/themes/dark.color-group.constant';
 import {TypographyType} from '../../../types/theme/typography-type.enum';
@@ -10,10 +10,31 @@ import {LIGHT_COLOR_GROUP} from '../../../constants/themes/light.color-group.con
 interface StyledTextProps {
 	color: string;
 	typography: Typography;
+	center: boolean;
+	uppercase: boolean;
+	bold: boolean;
 }
 
 const StyledText = styled(RNText)<StyledTextProps>`
-	${({color, typography}) => ({color, ...typography})}
+	${({center}) =>
+		center &&
+		css`
+			text-align: center;
+		`}
+
+	${({uppercase}) =>
+		uppercase &&
+		css`
+			text-transform: uppercase;
+		`}
+
+    ${({color, typography}) => ({color, ...typography})}
+
+    ${({bold}) =>
+		bold &&
+		css`
+			font-weight: bold;
+		`}
 `;
 
 interface Props extends RNTextProps {
@@ -23,6 +44,9 @@ interface Props extends RNTextProps {
 	primary?: boolean;
 	secondary?: boolean;
 	context?: boolean;
+	center?: boolean;
+	uppercase?: boolean;
+	bold?: boolean;
 }
 
 export const Text: FC<Props> = ({
@@ -32,6 +56,9 @@ export const Text: FC<Props> = ({
 	primary,
 	secondary,
 	context,
+	center = false,
+	uppercase = false,
+	bold = false,
 	...props
 }) => {
 	const theme = useTheme();
@@ -52,7 +79,16 @@ export const Text: FC<Props> = ({
 		[theme.typography, type]
 	);
 
-	return <StyledText {...props} color={color} typography={typography} />;
+	return (
+		<StyledText
+			{...props}
+			color={color}
+			typography={typography}
+			center={center}
+			uppercase={uppercase}
+			bold={bold}
+		/>
+	);
 };
 
 export type TextProps = Props;

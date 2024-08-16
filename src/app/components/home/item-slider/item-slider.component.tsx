@@ -7,9 +7,9 @@ import {
 import styled from 'styled-components/native';
 
 import {ItemSlide} from './item-slide.component';
-import {DARK_COLOR_GROUP} from '../../../constants/themes/dark.color-group.constant';
-import {LIGHT_COLOR_GROUP} from '../../../constants/themes/light.color-group.constant';
-import {SlideData} from '../../../types/api/items/slide-data.type';
+import {DARK_COLOR_GROUP} from '../../../../constants/themes/dark.color-group.constant';
+import {LIGHT_COLOR_GROUP} from '../../../../constants/themes/light.color-group.constant';
+import {SlideData} from '../../../../types/api/items/slide-data.type';
 import {ItemSlideSkeleton} from './item-slide.skeleton';
 
 const Container = styled.View`
